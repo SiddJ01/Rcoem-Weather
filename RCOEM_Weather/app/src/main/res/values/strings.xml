@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">RCOEM_Weather</string>
+    <string-array name="freq_arr">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Quarterly</item>
+    </string-array>
+
+    <string-array name="names">
+        <item>Weather</item>
+        <item>Temperature</item>
+        <item>Application</item>
+        <item>Others</item>
+    </string-array>
+
 </resources>

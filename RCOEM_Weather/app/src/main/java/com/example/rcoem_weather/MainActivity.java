@@ -1,5 +1,6 @@
 package com.example.rcoem_weather;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
@@ -11,6 +12,8 @@ import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -18,6 +21,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +31,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +64,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected String latitude, longitude;
     protected boolean gps_enabled, network_enabled;
     String curr_city;
+    String desc;
+
+
+    public void myfunc(View view){
+        Intent i = new Intent(MainActivity.this,Report.class);
+        startActivity(i);
+    }
 
 
     @Override
@@ -138,6 +152,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       // RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -236,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //                updated_at = new SimpleDateFormat("EEEE hh:mm a", Locale.ENGLISH).format(new Date(update_time * 1000));
 //
                 main = response.getJSONArray("daily").getJSONObject(0).getJSONArray("weather").getJSONObject(0).getString("main");
+                desc = response.getJSONArray("daily").getJSONObject(0).getJSONArray("weather").getJSONObject(0).getString("description");
                 Log.e("main",main);
                 ImageView iv = (ImageView) findViewById(R.id.imageView2);
                 if(main.equals("Rain")){
@@ -269,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
                 mBuilder.setSmallIcon(R.drawable.min_temp_icon);
                 mBuilder.setContentTitle("Current Temperature is " + temperature);
-                mBuilder.setContentText("Feels Like " + feels_like);
+                mBuilder.setContentText("Description - " + desc);
 
 
 
@@ -339,5 +356,71 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Log.e("Access Denied","Check Permission");
         }
     }
+
+    public void ShowDialog(View view)
+    {
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        final RatingBar rating = new RatingBar(this);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        rating.setLayoutParams(lp);
+        rating.setNumStars(7);
+        rating.setStepSize(1);
+
+        //add ratingBar to linearLayout
+        linearLayout.addView(rating);
+
+
+        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+        popDialog.setTitle("RATING FOR FEEDBACK ");
+
+        //add linearLayout to dailog
+        popDialog.setView(linearLayout);
+
+        TextView textView =(TextView)findViewById(R.id.textView5);
+
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                System.out.println("Rated val:"+v);
+            }
+        });
+
+
+
+        // Button OK
+        popDialog.setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+//                                textView.setText(String.valueOf(rating.getProgress()));
+                                dialog.dismiss();
+                            }
+                        })
+
+                // Button Cancel
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        popDialog.create();
+        popDialog.show();
+
+    }
+
+    public void getLocation(View view){
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=Regional+Meterological+Center+Nagpur");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        }
+
 
 }

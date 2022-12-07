@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Name"
+        android:textSize="30sp"
+        />
+
+    <EditText
+        android:id="@+id/entrusr"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_toRightOf="@id/name"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/MobNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Enter Query"
+        android:textSize="30sp"
+        android:layout_below="@id/entrusr"
+        />
+
+    <EditText
+        android:id="@+id/entrmob"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_toRightOf="@id/MobNo"
+        android:layout_below="@id/entrusr"
+        />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="10dp"
+        android:hint="Enter Date"
+        android:layout_below="@id/entrmob"
+        android:layout_toRightOf="@id/button1"
+        />
+
+    <TextView
+        android:id="@+id/button1"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/entrmob"
+        android:text="Date"
+        android:gravity="left"
+        />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText1"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:text="Urgency"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radiobut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/editText1"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@id/textView2"
+        >
+        <RadioButton android:id="@+id/g1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Critical" />
+        <RadioButton android:id="@+id/g2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Important" />
+
+        <RadioButton android:id="@+id/radio_g3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Casual" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radiobut"
+        android:gravity="left"
+        android:text="Reason"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingTop="10sp"/>
+
+    <ListView
+        android:paddingTop="10sp"
+        android:layout_below="@id/radiobut"
+        android:id="@+id/lvMain"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/textView4"
+        android:layout_height="wrap_content">
+    </ListView>
+
+
+    <CheckBox android:id="@+id/checkbox"
+        android:layout_below="@id/lvMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "I agree to the terms and conditions"
+        />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_below="@id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text ="Submit"
+        android:onClick="onClick"
+        />
+
+
+</RelativeLayout>
